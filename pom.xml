@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>com.mjanos</groupId>
 	<artifactId>blogmotor</artifactId>
@@ -10,9 +11,9 @@
 	<properties>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<jetty.version>6.1.4</jetty.version>
-		<spring.version>3.0.5.RELEASE</spring.version>
+		<spring.version>3.2.0.RELEASE</spring.version>
 		<slf4j.version>1.5.10</slf4j.version>
-		<java.version>1.5</java.version>
+		<java.version>1.7</java.version>
 		<junit.version>4.8.2</junit.version>
 	</properties>
 
@@ -55,7 +56,7 @@
 		<dependency>
 			<groupId>org.hibernate</groupId>
 			<artifactId>hibernate-entitymanager</artifactId>
-			<version>3.6.0.Final</version>
+			<version>4.2.0.Final</version>
 			<scope>compile</scope>
 		</dependency>
 
@@ -72,6 +73,13 @@
 			<scope>compile</scope>
 		</dependency>
 
+		<dependency>
+			<groupId>postgresql</groupId>
+			<artifactId>postgresql</artifactId>
+			<version>9.1-901.jdbc4</version>
+		</dependency>
+
+
 		<!-- Spring Dependencies -->
 
 		<dependency>
@@ -86,7 +94,6 @@
 				</exclusion>
 			</exclusions>
 		</dependency>
-
 		<dependency>
 			<groupId>org.springframework</groupId>
 			<artifactId>spring-webmvc</artifactId>
@@ -125,6 +132,20 @@
 			<scope>compile</scope>
 		</dependency>
 
+		<dependency>
+			<groupId>org.apache.commons</groupId>
+			<artifactId>commons-lang3</artifactId>
+			<version>3.1</version>
+		</dependency>
+
+
+		<dependency>
+			<groupId>commons-collections</groupId>
+			<artifactId>commons-collections</artifactId>
+			<version>3.2.1</version>
+		</dependency>
+
+
 		<!-- View Dependencies -->
 		<dependency>
 			<groupId>taglibs</groupId>
@@ -133,7 +154,27 @@
 			<type>jar</type>
 			<scope>compile</scope>
 		</dependency>
+		<dependency>
+			<groupId>jstl</groupId>
+			<artifactId>jstl</artifactId>
+			<version>1.2</version>
+		</dependency>
 
+		<dependency>
+			<groupId>org.richfaces.sandbox.ui.bootstrap</groupId>
+			<artifactId>bootstrap-ui</artifactId>
+			<version>4.3.1-SNAPSHOT</version>
+		</dependency>
+		<dependency>
+			<groupId>org.richfaces.ui</groupId>
+			<artifactId>richfaces-components-ui</artifactId>
+			<version>4.3.1-SNAPSHOT</version>
+		</dependency>
+		<dependency>
+			<groupId>org.richfaces.core</groupId>
+			<artifactId>richfaces-core-impl</artifactId>
+			<version>4.3.1-SNAPSHOT</version>
+		</dependency>
 
 		<!-- Test Dependencies -->
 		<dependency>
@@ -200,7 +241,7 @@
 	</repositories>
 
 	<build>
-		<finalName>spring-jsf-jpa</finalName>
+		<finalName>blogmotor</finalName>
 		<plugins>
 
 			<!-- Facilitates downloading source and javadoc in Eclipse -->
