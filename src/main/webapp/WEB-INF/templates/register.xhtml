@@ -1,0 +1,65 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:b="http://richfaces.org/sandbox/bootstrap">
+	<b:modal id="registerModal">
+		<b:headerFacet>
+			<h3>#{messages.registration}</h3>
+		</b:headerFacet>
+
+		<h:form style="margin: 0">
+			<b:bodyFacet>
+				<h:panelGrid columns="2">
+					<b:input id="name" value="#{userBean.user.name}"
+						placeholder="John Doe">
+						<f:facet name="prepend">
+							<h:outputText value="#{messages.name}" />
+						</f:facet>
+					</b:input>
+					<h:message for="name" infoClass="alert alert-info"
+						warnClass="alert" errorClass="alert alert-error"
+						fatalClass="alert alert-error" />
+
+					<b:input id="email" value="#{userBean.user.email}"
+						placeholder="john@doe.com">
+						<f:facet name="prepend">
+							<h:outputText value="#{messages.email}" />
+						</f:facet>
+					</b:input>
+					<h:message for="email" infoClass="alert alert-info"
+						warnClass="alert" errorClass="alert alert-error"
+						fatalClass="alert alert-error" />
+
+					<b:input id="pass" type="password"
+						value="#{userBean.user.password}"
+						placeholder="#{messages.password}">
+						<f:facet name="prepend">
+							<h:outputText value="#{messages.password}" />
+						</f:facet>
+					</b:input>
+					<h:message for="pass" infoClass="alert alert-info"
+						warnClass="alert" errorClass="alert alert-error"
+						fatalClass="alert alert-error" />
+					<b:input id="pass2" type="password"
+						placeholder="#{messages.passwordagain}">
+						<f:facet name="prepend">
+							<h:outputText value="#{messages.passwordagain}" />
+						</f:facet>
+					</b:input>
+					<h:message for="pass2" infoClass="alert alert-info"
+						warnClass="alert" errorClass="alert alert-error"
+						fatalClass="alert alert-error" />
+				</h:panelGrid>
+			</b:bodyFacet>
+
+			<b:footerFacet>
+				<b:commandButton value="Save" severity="primary" execute="@form"
+					oncomplete="if(#{!facesContext.isValidationFailed()}) #{b:hide('registerModal')}" />
+
+				<b:commandButton value="Cancel" mode="client"
+					onclick="#{b:hide('registerModal')}" />
+			</b:footerFacet>
+		</h:form>
+	</b:modal>
+</ui:composition>

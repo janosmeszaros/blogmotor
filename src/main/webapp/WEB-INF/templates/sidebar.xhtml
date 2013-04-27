@@ -26,7 +26,8 @@
 
 				<b:commandButton value="Sign in" severity="primary" />
 				or
-				<b:commandButton value="Register" severity="danger" />
+				<b:commandButton value="Register" mode="client" severity="danger"
+					onclick="#{b:show('registerModal')}" />
 			</div>
 		</div>
 	</h:form>
