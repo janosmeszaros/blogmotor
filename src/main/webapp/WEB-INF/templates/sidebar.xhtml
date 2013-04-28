@@ -7,14 +7,14 @@
 		<div class="control-group">
 			<h:outputLabel value="Email" styleClass="control-label" />
 			<div class="controls">
-				<b:input placeholder="Email" />
+				<b:input placeholder="Email" value="#{userBean.user.email}" />
 			</div>
 		</div>
 
 		<div class="control-group">
 			<h:outputLabel value="Password" styleClass="control-label" />
 			<div class="controls">
-				<b:input type="password" placeholder="Password" />
+				<b:input type="password" value="#{userBean.user.password}"  placeholder="Password" />
 			</div>
 		</div>
 
@@ -24,7 +24,7 @@
 					<h:selectBooleanCheckbox /> Remember me
             </h:outputLabel>
 
-				<b:commandButton value="Sign in" severity="primary" />
+				<b:commandButton value="Sign in" severity="primary" action="#{userBean.signIn}" />
 				or
 				<b:commandButton value="Register" mode="client" severity="danger"
 					onclick="#{b:show('registerModal')}" />

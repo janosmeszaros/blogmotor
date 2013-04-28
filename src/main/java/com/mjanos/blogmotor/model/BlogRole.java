@@ -1,10 +1,12 @@
 package com.mjanos.blogmotor.model;
 
+import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 
 import org.apache.commons.lang3.builder.ToStringBuilder;
 
+@Entity
 public class BlogRole {
     @Id
     @GeneratedValue

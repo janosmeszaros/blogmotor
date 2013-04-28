@@ -2,6 +2,7 @@ package com.mjanos.blogmotor.model;
 
 import java.util.Date;
 
+import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
@@ -11,6 +12,7 @@ import javax.persistence.TemporalType;
 import org.apache.commons.lang3.builder.ToStringBuilder;
 import org.springframework.format.annotation.DateTimeFormat;
 
+@Entity
 public class Comment {
 
     @Id

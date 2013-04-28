@@ -8,7 +8,7 @@
 			<h3>#{messages.registration}</h3>
 		</b:headerFacet>
 
-		<h:form style="margin: 0">
+		<h:form id="registerForm" style="margin: 0">
 			<b:bodyFacet>
 				<h:panelGrid columns="2">
 					<b:input id="name" value="#{userBean.user.name}"
@@ -17,9 +17,7 @@
 							<h:outputText value="#{messages.name}" />
 						</f:facet>
 					</b:input>
-					<h:message for="name" infoClass="alert alert-info"
-						warnClass="alert" errorClass="alert alert-error"
-						fatalClass="alert alert-error" />
+					<h:message for="name"/>
 
 					<b:input id="email" value="#{userBean.user.email}"
 						placeholder="john@doe.com">
@@ -38,23 +36,24 @@
 							<h:outputText value="#{messages.password}" />
 						</f:facet>
 					</b:input>
-					<h:message for="pass" infoClass="alert alert-info"
+					<h:message for="pass" id="passwordError" infoClass="alert alert-info"
 						warnClass="alert" errorClass="alert alert-error"
 						fatalClass="alert alert-error" />
-					<b:input id="pass2" type="password"
+						
+					<b:input id="pass2" type="password" validator="#{userBean.validatePassword}"
 						placeholder="#{messages.passwordagain}">
 						<f:facet name="prepend">
 							<h:outputText value="#{messages.passwordagain}" />
 						</f:facet>
 					</b:input>
-					<h:message for="pass2" infoClass="alert alert-info"
+					<h:message for="pass2" id="password2Error" infoClass="alert alert-info"
 						warnClass="alert" errorClass="alert alert-error"
 						fatalClass="alert alert-error" />
 				</h:panelGrid>
 			</b:bodyFacet>
 
 			<b:footerFacet>
-				<b:commandButton value="Save" severity="primary" execute="@form"
+				<b:commandButton value="Save" severity="primary" mode="ajax" execute="@form" action="#{userBean.register}"
 					oncomplete="if(#{!facesContext.isValidationFailed()}) #{b:hide('registerModal')}" />
 
 				<b:commandButton value="Cancel" mode="client"

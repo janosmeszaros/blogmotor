@@ -1,0 +1,1 @@
+insert into bloguser (id, name, password, email) values (nextval('hibernate_sequence'), 'admin', 'admin', 'admin@admin.com');
