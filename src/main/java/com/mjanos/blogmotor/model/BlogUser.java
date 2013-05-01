@@ -1,19 +1,19 @@
 package com.mjanos.blogmotor.model;
 
-import java.util.HashSet;
-import java.util.Set;
-
-import javax.persistence.CascadeType;
 import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
-import javax.persistence.ManyToMany;
+import javax.persistence.Table;
+import javax.persistence.UniqueConstraint;
 
 import org.apache.commons.lang3.builder.ToStringBuilder;
 import org.hibernate.validator.constraints.Email;
 import org.hibernate.validator.constraints.NotEmpty;
 
 @Entity
+@Table(name = "bloguser", uniqueConstraints = {@UniqueConstraint(columnNames = {"email"})})
 public class BlogUser {
 
     @Id
@@ -30,8 +30,8 @@ public class BlogUser {
     @NotEmpty
     private String password;
 
-    @ManyToMany(cascade = CascadeType.ALL)
-    private final Set<BlogRole> roles = new HashSet<BlogRole>();
+    @Enumerated(EnumType.STRING)
+    private BlogRole role = BlogRole.user;
 
     public long getId() {
         return id;
@@ -65,8 +65,12 @@ public class BlogUser {
         this.password = password;
     }
 
-    public Set<BlogRole> getRoles() {
-        return roles;
+    public BlogRole getRole() {
+        return role;
+    }
+
+    public void setRole(BlogRole role) {
+        this.role = role;
     }
 
     @Override
