@@ -6,6 +6,9 @@
 	<b:alert severity="info">
 		<h:form id="loginForm" styleClass="form-horizontal"
 			rendered="#{userBean.loggedInUser == null}">
+			<h:messages for="signin" infoClass="alert alert-info"
+				warnClass="alert" errorClass="alert alert-error"
+				fatalClass="alert alert-error" />
 			<div class="control-group">
 				<h:outputLabel value="Email" styleClass="control-label" />
 				<div class="controls">
@@ -35,9 +38,6 @@
 						onclick="#{b:show('registerModal')}" />
 				</div>
 			</div>
-			<h:message for="signin" infoClass="alert alert-info"
-				warnClass="alert" errorClass="alert alert-error"
-				fatalClass="alert alert-error" />
 		</h:form>
 		<h:form rendered="#{userBean.loggedInUser != null}">
 			<p>

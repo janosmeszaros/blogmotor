@@ -8,16 +8,18 @@
 			<h3>#{messages.registration}</h3>
 		</b:headerFacet>
 
-		<h:form id="registerForm" style="margin: 0">
+		<h:form id="registerForm" style="form-horizontal">
 			<b:bodyFacet id="registerFormBody">
-				<h:panelGrid columns="2">
+				<h:panelGroup id="formWrapper">
 					<b:input id="name" value="#{userBean.user.name}"
 						placeholder="John Doe">
 						<f:facet name="prepend">
 							<h:outputText value="#{messages.name}" />
 						</f:facet>
 					</b:input>
-					<h:message for="name"/>
+					<h:message for="name" id="nameError" infoClass="alert alert-info"
+						warnClass="alert" errorClass="alert alert-error"
+						fatalClass="alert alert-error" />
 
 					<b:input id="email" value="#{userBean.user.email}"
 						placeholder="john@doe.com">
@@ -25,9 +27,9 @@
 							<h:outputText value="#{messages.email}" />
 						</f:facet>
 					</b:input>
-					<h:message for="email" infoClass="alert alert-info"
-						warnClass="alert" errorClass="alert alert-error"
-						fatalClass="alert alert-error" />
+					<h:message for="registerForm:email" id="emailError"
+						infoClass="alert alert-info" warnClass="alert"
+						errorClass="alert alert-error" fatalClass="alert alert-error" />
 
 					<b:input id="pass" type="password"
 						value="#{userBean.user.password}"
@@ -36,24 +38,26 @@
 							<h:outputText value="#{messages.password}" />
 						</f:facet>
 					</b:input>
-					<h:message for="pass" id="passwordError" infoClass="alert alert-info"
-						warnClass="alert" errorClass="alert alert-error"
-						fatalClass="alert alert-error" />
-						
-					<b:input id="pass2" type="password" validator="#{userBean.validatePassword}"
+					<h:message for="pass" id="passwordError"
+						infoClass="alert alert-info" warnClass="alert"
+						errorClass="alert alert-error" fatalClass="alert alert-error" />
+
+					<b:input id="pass2" type="password"
+						validator="#{userBean.validatePassword}"
 						placeholder="#{messages.passwordagain}">
 						<f:facet name="prepend">
 							<h:outputText value="#{messages.passwordagain}" />
 						</f:facet>
 					</b:input>
-					<h:message for="pass2" id="password2Error" infoClass="alert alert-info"
-						warnClass="alert" errorClass="alert alert-error"
-						fatalClass="alert alert-error" />
-				</h:panelGrid>
+					<h:message for="pass2" id="password2Error"
+						infoClass="alert alert-info" warnClass="alert"
+						errorClass="alert alert-error" fatalClass="alert alert-error" />
+				</h:panelGroup>
 			</b:bodyFacet>
 
 			<b:footerFacet>
-				<b:commandButton value="Save" severity="primary" mode="ajax" execute="@form" action="#{userBean.register}"
+				<b:commandButton value="Save" severity="primary" render=":loginForm formWrapper"
+					execute="@form" action="#{userBean.register}"
 					oncomplete="if(#{!facesContext.isValidationFailed()}) #{b:hide('registerModal')}" />
 
 				<b:commandButton value="Cancel" mode="client"
