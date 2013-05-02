@@ -26,8 +26,8 @@
 						value="#{userBean.user.password}" placeholder="Password" />
 				</div>
 			</div>
-				<h:message for="pass" infoClass="alert alert-info" warnClass="alert"
-					errorClass="alert alert-error" fatalClass="alert alert-error" />
+			<h:message for="pass" infoClass="alert alert-info" warnClass="alert"
+				errorClass="alert alert-error" fatalClass="alert alert-error" />
 
 			<div class="control-group">
 				<div class="controls">
@@ -40,15 +40,14 @@
 			</div>
 		</h:form>
 		<h:form rendered="#{userBean.loggedInUser != null}">
-			<p>
-				Welcome
-				<h:outputText value="#{userBean.loggedInUser.name}" />
-				!!
+			<p class="lead">
+				<h:outputText value="Welcome #{userBean.loggedInUser.name}!!" />
 			</p>
-			<p>
-				<b:commandButton value="Sign out" severity="danger" mode="server"
-					action="#{userBean.signOut}" />
-			</p>
+				<h:panelGrid columns="2" cellpadding="10">
+					<b:commandButton value="Create post" severity="info" mode="client" onclick="#{b:show('newPostModal')}" rendered="#{userBean.loggedInUser.role != 'user'}" />
+					<b:commandButton value="Sign out" severity="danger" mode="server"
+						action="#{userBean.signOut}" />
+				</h:panelGrid>
 		</h:form>
 	</b:alert>
 </ui:composition>

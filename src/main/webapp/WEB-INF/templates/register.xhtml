@@ -56,7 +56,7 @@
 			</b:bodyFacet>
 
 			<b:footerFacet>
-				<b:commandButton value="Save" severity="primary" render=":loginForm formWrapper"
+				<b:commandButton value="Save" severity="primary" render="formWrapper"
 					execute="@form" action="#{userBean.register}"
 					oncomplete="if(#{!facesContext.isValidationFailed()}) #{b:hide('registerModal')}" />
 

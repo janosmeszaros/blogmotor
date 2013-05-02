@@ -1,14 +1,17 @@
 package com.mjanos.blogmotor.bean;
 
+import java.util.Date;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
 
 import com.mjanos.blogmotor.dao.GenericDAO;
 import com.mjanos.blogmotor.model.Post;
 
+@Scope("session")
 @Component("postBean")
 public class PostBean {
 
@@ -16,13 +19,34 @@ public class PostBean {
     @Qualifier("postGenericDAO")
     private GenericDAO<Post> dao;
 
-    private List<Post> posts;
+    @Autowired
+    private UserBean userBean;
+    private Post newPost;
+
+    public void saveNewPost() {
+        persistPost();
+        invalidate();
+    }
+
+    private void persistPost() {
+        newPost.setPostDate(new Date());
+        newPost.setOwner(userBean.getLoggedInUser());
+        dao.persist(newPost);
+    }
+
+    private void invalidate() {
+        newPost = null;
+    }
 
     public List<Post> getPosts() {
-        if (posts == null) {
-            posts = dao.getByCriteria();
+        return dao.getByCriteria();
+    }
+
+    public Post getNewPost() {
+        if (newPost == null) {
+            newPost = new Post();
         }
-        return posts;
+        return newPost;
     }
 
 }

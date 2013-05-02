@@ -79,6 +79,12 @@
 			<version>9.1-901.jdbc4</version>
 		</dependency>
 
+		<dependency>
+			<groupId>org.hibernate</groupId>
+			<artifactId>hibernate-ehcache</artifactId>
+			<version>4.2.0.Final</version>
+		</dependency>
+
 
 		<!-- Spring Dependencies -->
 

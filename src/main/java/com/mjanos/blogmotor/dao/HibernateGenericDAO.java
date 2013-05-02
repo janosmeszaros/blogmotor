@@ -20,15 +20,15 @@ public class HibernateGenericDAO<T> implements GenericDAO<T> {
     public HibernateGenericDAO() {
     }
 
-    public HibernateGenericDAO(Class<T> persistentClass) {
+    public HibernateGenericDAO(final Class<T> persistentClass) {
         super();
         this.persistentClass = persistentClass;
     }
 
     @Transactional
     @Override
-    public void persist(T entity) {
-        getSession().persist(entity);
+    public void persist(final T entity) {
+        getSession().saveOrUpdate(entity);
     }
 
     private Session getSession() {
@@ -38,20 +38,20 @@ public class HibernateGenericDAO<T> implements GenericDAO<T> {
     @SuppressWarnings("unchecked")
     @Transactional
     @Override
-    public T update(T entity) {
+    public T update(final T entity) {
         return (T) getSession().merge(entity);
     }
 
     @Transactional
     @Override
-    public void delete(T entity) {
+    public void delete(final T entity) {
         getSession().delete(entity);
     }
 
     @SuppressWarnings("unchecked")
     @Transactional
     @Override
-    public List<T> getByCriteria(Criterion... criterion) {
+    public List<T> getByCriteria(final Criterion... criterion) {
         final Criteria crit = getSession().createCriteria(persistentClass);
         if (criterion != null) {
             for (final Criterion c : criterion) {
@@ -65,7 +65,7 @@ public class HibernateGenericDAO<T> implements GenericDAO<T> {
     @SuppressWarnings("unchecked")
     @Override
     @Transactional
-    public T getById(long id) {
+    public T getById(final long id) {
         return (T) getSession().get(persistentClass, id);
     }
 

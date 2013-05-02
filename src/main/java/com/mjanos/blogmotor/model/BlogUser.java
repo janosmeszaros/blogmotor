@@ -1,19 +1,23 @@
 package com.mjanos.blogmotor.model;
 
+import javax.persistence.Cacheable;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.Table;
-import javax.persistence.UniqueConstraint;
 
 import org.apache.commons.lang3.builder.ToStringBuilder;
+import org.hibernate.annotations.Cache;
+import org.hibernate.annotations.CacheConcurrencyStrategy;
 import org.hibernate.validator.constraints.Email;
 import org.hibernate.validator.constraints.NotEmpty;
 
 @Entity
-@Table(name = "bloguser", uniqueConstraints = {@UniqueConstraint(columnNames = {"email"})})
+@Table(name = "bloguser")
+@Cacheable
+@Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
 public class BlogUser {
 
     @Id
@@ -37,7 +41,7 @@ public class BlogUser {
         return id;
     }
 
-    public void setId(long id) {
+    public void setId(final long id) {
         this.id = id;
     }
 
@@ -45,7 +49,7 @@ public class BlogUser {
         return name;
     }
 
-    public void setName(String name) {
+    public void setName(final String name) {
         this.name = name;
     }
 
@@ -53,7 +57,7 @@ public class BlogUser {
         return email;
     }
 
-    public void setEmail(String email) {
+    public void setEmail(final String email) {
         this.email = email;
     }
 
@@ -61,7 +65,7 @@ public class BlogUser {
         return password;
     }
 
-    public void setPassword(String password) {
+    public void setPassword(final String password) {
         this.password = password;
     }
 
@@ -69,7 +73,7 @@ public class BlogUser {
         return role;
     }
 
-    public void setRole(BlogRole role) {
+    public void setRole(final BlogRole role) {
         this.role = role;
     }
 

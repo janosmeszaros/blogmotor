@@ -1,0 +1,63 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:b="http://richfaces.org/sandbox/bootstrap">
+	<b:modal id="newPostModal">
+		<b:headerFacet>
+			<h3>#{messages.addPost}</h3>
+		</b:headerFacet>
+		<h:form id="newPostForm" styleClass="form-horizontal">
+			<b:bodyFacet id="newPostFormBody">
+				<h:panelGroup id="newPostFormWrapper">
+					<div class="control-group">
+						<h:outputLabel value="${messages.title}"
+							styleClass="control-label" />
+						<div class="controls">
+							<b:input id="title" placeholder="${messages.title}"
+								value="#{postBean.newPost.title}" />
+							<h:message for="title" infoClass="alert alert-info"
+								warnClass="alert" errorClass="alert alert-error"
+								fatalClass="alert alert-error" />
+						</div>
+					</div>
+					<div class="control-group">
+						<h:outputLabel value="${messages.taxonomy}"
+							styleClass="control-label" />
+						<div class="controls">
+							<h:selectOneMenu id="taxonomy"
+								value="#{postBean.newPost.taxonomy}">
+								<f:converter converterId="TaxonomyConverter" />
+								<f:selectItems value="#{taxonomyBean.taxonomies}" />
+							</h:selectOneMenu>
+							<h:message for="taxonomy" infoClass="alert alert-info"
+								warnClass="alert" errorClass="alert alert-error"
+								fatalClass="alert alert-error" />
+						</div>
+					</div>
+					<div class="control-group">
+						<h:outputLabel value="${messages.post}" styleClass="control-label" />
+						<div class="controls">
+							<h:inputTextarea rows="10" id="post"
+								value="#{postBean.newPost.post}" />
+							<h:message for="post" infoClass="alert alert-info"
+								warnClass="alert" errorClass="alert alert-error"
+								fatalClass="alert alert-error" />
+						</div>
+					</div>
+
+				</h:panelGroup>
+			</b:bodyFacet>
+
+			<b:footerFacet>
+				<b:commandButton value="#{messages.save}" severity="primary"
+					render="newPostForm" execute="@form"
+					action="#{postBean.saveNewPost}"
+					oncomplete="if(#{!facesContext.isValidationFailed()}) #{b:hide('newPostModal')}" />
+
+				<b:commandButton value="#{messages.cancel}" mode="client"
+					onclick="#{b:hide('newPostModal')}" />
+			</b:footerFacet>
+		</h:form>
+	</b:modal>
+</ui:composition>
