@@ -53,5 +53,6 @@
 		class="org.springframework.orm.jpa.support.PersistenceAnnotationBeanPostProcessor" />
 		
 		 <bean class="com.mjanos.blogmotor.dao.HibernateGenericDAO" c:persistentClass="com.mjanos.blogmotor.model.BlogUser" id="userGenericDAO"/>
+		 <bean class="com.mjanos.blogmotor.dao.HibernateGenericDAO" c:persistentClass="com.mjanos.blogmotor.model.Post" id="postGenericDAO"/>
 
 </beans>

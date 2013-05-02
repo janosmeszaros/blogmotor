@@ -5,29 +5,40 @@
 	xmlns:h="http://java.sun.com/jsf/html"
 	template="/WEB-INF/templates/template.xhtml"
 	xmlns:b="http://richfaces.org/sandbox/bootstrap">
+
 	<ui:define name="content">
-		<b:heroUnit heading="Hello, world!"
-			tagline="This is a simple hero unit, a simple jumbotron-style component for calling extra attention to featured content or information." />
-			
-		<h2>Tasks</h2>
-		<table>
-			<ui:repeat value="#{taskHome.tasks}" var="v_task">
-				<tr>
-					<td>#{v_task.id}</td>
-					<td>#{v_task.description}</td>
-				</tr>
-			</ui:repeat>
-		</table>
-
-		<h:form>
-			<div
-				style="border-top: 1px solid #d0d0d0; margin-top: 12px; padding-top: 12px">
-				<h:inputText value="#{taskHome.task.description}" id="taskDesc" />
-				<h:commandButton severity="primary" action="#{taskHome.saveTask}" value="Add" />
-				<h:message for="taskDesc" style="color : red;padding-left : 8px" />
-			</div>
-
-		</h:form>
+		<ui:repeat var="post" value="#{postBean.posts}">
+			<b:heroUnit heading="#{post.title}">
+				<b:gridRow styleClass="show-grid alert alert-success" fluid="true" >
+					<b:gridColumn span="2">
+						<h:outputText value="#{post.postDate}">
+							<f:convertDateTime pattern="dd.MM.yyyy" />
+						</h:outputText>
+					</b:gridColumn>
+					<b:gridColumn span="2">
+							<h:outputText value="Author: #{post.owner.name}" />
+					</b:gridColumn>
+					<b:gridColumn span="2">
+						<b:badge severity="warning">
+							<h:outputText value="#{post.taxonomy.name}" />
+						</b:badge>
+					</b:gridColumn>
+				</b:gridRow>
+				<p class="lead">
+					<h:outputText value="#{post.post}" />
+				</p>
+				<b:gridRow styleClass="show-grid" fluid="true">
+					<b:gridColumn span="2" offset="10">
+						<h:form>
+							<b:commandButton value="Comments" severity="info" />
+						</h:form>
+					</b:gridColumn>
+				</b:gridRow>
+				<ui:repeat var="comment" value="#{post.comments}">
+					<h:outputText value="#{comment.comment}" />
+				</ui:repeat>
+			</b:heroUnit>
+		</ui:repeat>
 
 	</ui:define>
 </ui:composition>
