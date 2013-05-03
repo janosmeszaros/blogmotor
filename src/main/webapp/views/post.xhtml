@@ -8,37 +8,40 @@
 	xmlns:b="http://richfaces.org/sandbox/bootstrap">
 	<ui:define name="content">
 		<b:heroUnit heading="#{postBean.actual.title}">
-			<b:gridRow styleClass="show-grid alert alert-success" fluid="true">
-				<b:gridColumn span="2">
-					<h:outputText value="#{postBean.actual.postDate}">
-						<f:convertDateTime pattern="dd.MM.yyyy" />
-					</h:outputText>
-				</b:gridColumn>
-				<b:gridColumn span="2">
-					<h:outputText value="Author: #{postBean.actual.owner.name}" />
-				</b:gridColumn>
-				<b:gridColumn span="2">
-					<b:badge severity="warning">
-						<h:outputText value="#{postBean.actual.taxonomy.name}" />
-					</b:badge>
-				</b:gridColumn>
-			</b:gridRow>
-			<p class="lead">
-				<h:outputText value="#{postBean.actual.post}" />
-			</p>
-			<b:gridRow styleClass="show-grid" fluid="true">
-				<b:gridColumn span="2" offset="8">
-					<h:form>
-						<h:panelGrid columns="3" cellpadding="10">
-							<b:commandButton value="Edit" severity="warning"
-								rendered="#{userBean.loggedInUser.role == 'admin' || postBean.actual.owner == userBean.loggedInUser}" />
-							<b:commandButton value="Delete" severity="danger" mode="server"
-								action="#{postBean.delete}"
-								rendered="#{userBean.loggedInUser.role == 'admin' || postBean.actual.owner == userBean.loggedInUser}" />
-						</h:panelGrid>
-					</h:form>
-				</b:gridColumn>
-			</b:gridRow>
+				<b:gridRow styleClass="show-grid alert alert-success" fluid="true">
+					<b:gridColumn span="2">
+						<h:outputText value="#{postBean.actual.postDate}">
+							<f:convertDateTime pattern="dd.MM.yyyy" />
+						</h:outputText>
+					</b:gridColumn>
+					<b:gridColumn span="2">
+						<h:outputText value="Author: #{postBean.actual.owner.name}" />
+					</b:gridColumn>
+					<b:gridColumn span="2">
+						<b:badge severity="warning">
+							<h:outputText value="#{postBean.actual.taxonomy.name}" />
+						</b:badge>
+					</b:gridColumn>
+				</b:gridRow>
+				<p class="lead">
+					<h:outputText value="#{postBean.actual.post}" />
+				</p>
+				<b:gridRow styleClass="show-grid" fluid="true">
+					<b:gridColumn span="2" offset="10">
+						<h:form>
+							<h:panelGrid columns="3" cellpadding="10">
+								<b:commandButton value="Edit" severity="warning" mode="ajax" action="#{postBean.edit}" render="newPostForm:title newPostForm:taxonomy newPostForm:post" oncomplete="#{b:show('newPostModal')}"
+									rendered="#{userBean.loggedInUser.role == 'admin' || postBean.actual.owner == userBean.loggedInUser}" />
+								<b:commandButton value="Delete" severity="danger" mode="server"
+									action="#{postBean.delete}"
+									rendered="#{userBean.loggedInUser.role == 'admin' || postBean.actual.owner == userBean.loggedInUser}" />
+							</h:panelGrid>
+						</h:form>
+					</b:gridColumn>
+				</b:gridRow>
+				<p class="lead">
+					<h:outputText value="#{messages.comments}" />
+				</p>
 				<ui:repeat var="comment" value="#{postBean.actual.comments}">
 					<b:gridRow styleClass="well">
 						<b:gridRow styleClass="show-grid" fluid="true">

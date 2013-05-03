@@ -21,6 +21,7 @@
 								fatalClass="alert alert-error" />
 						</div>
 					</div>
+					<!-- Taxonomy select -->
 					<div class="control-group">
 						<h:outputLabel value="${messages.taxonomy}"
 							styleClass="control-label" />
@@ -33,6 +34,23 @@
 							<h:message for="taxonomy" infoClass="alert alert-info"
 								warnClass="alert" errorClass="alert alert-error"
 								fatalClass="alert alert-error" />
+							<b:commandButton severity="danger" mode="ajax"
+								action="#{taxonomyBean.delete}" render="taxonomy"
+								execute="taxonomy">
+								<i class="icon-minus-sign"></i>
+							</b:commandButton>
+						</div>
+					</div>
+					<!-- Add taxonomy -->
+					<div class="control-group" id="newTaxonomyDiv">
+						<div class="controls">
+							<h:inputText id="addTaxonomy"
+								value="#{taxonomyBean.newTaxonomy.name}" />
+							<b:commandButton severity="inverse" execute="addTaxonomy"
+								render="taxonomy addTaxonomy" mode="ajax"
+								action="#{taxonomyBean.addNew}">
+								<i class="icon-plus-sign"></i>
+							</b:commandButton>
 						</div>
 					</div>
 					<div class="control-group">
@@ -45,18 +63,18 @@
 								fatalClass="alert alert-error" />
 						</div>
 					</div>
-
 				</h:panelGroup>
 			</b:bodyFacet>
 
 			<b:footerFacet>
 				<b:commandButton value="#{messages.save}" severity="primary"
-					render="newPostForm" execute="@form"
+					render="@ALL" execute="@form"
 					action="#{postBean.saveNewPost}"
 					oncomplete="if(#{!facesContext.isValidationFailed()}) #{b:hide('newPostModal')}" />
 
-				<b:commandButton value="#{messages.cancel}" mode="client"
-					onclick="#{b:hide('newPostModal')}" />
+				<b:commandButton value="#{messages.cancel}" mode="ajax"
+					action="#{postBean.invalidatePost}"
+					oncomplete="#{b:hide('newPostModal')}" />
 			</b:footerFacet>
 		</h:form>
 	</b:modal>

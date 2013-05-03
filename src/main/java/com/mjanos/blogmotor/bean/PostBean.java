@@ -37,6 +37,10 @@ public class PostBean {
         invalidatePost();
     }
 
+    public void edit() {
+        newPost = actual;
+    }
+
     public String delete() {
         LOG.debug("Delete post with id: " + actual.getId());
         dao.delete(actual);
@@ -93,9 +97,10 @@ public class PostBean {
         newPost.setPostDate(new Date());
         newPost.setOwner(userBean.getLoggedInUser());
         dao.persist(newPost);
+        LOG.debug("Save post: " + newPost);
     }
 
-    private void invalidatePost() {
+    public void invalidatePost() {
         newPost = null;
     }
 
