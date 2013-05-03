@@ -2,6 +2,7 @@
 	xmlns:ui="http://java.sun.com/jsf/facelets"
 	xmlns:f="http://java.sun.com/jsf/core"
 	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:rich="http://richfaces.org/rich"
 	xmlns:b="http://richfaces.org/sandbox/bootstrap">
 	<b:modal id="newPostModal">
 		<b:headerFacet>
@@ -16,6 +17,10 @@
 						<div class="controls">
 							<b:input id="title" placeholder="${messages.title}"
 								value="#{postBean.newPost.title}" />
+						</div>
+					</div>
+					<div class="control-group">
+						<div class="controls">
 							<h:message for="title" infoClass="alert alert-info"
 								warnClass="alert" errorClass="alert alert-error"
 								fatalClass="alert alert-error" />
@@ -56,19 +61,23 @@
 					<div class="control-group">
 						<h:outputLabel value="${messages.post}" styleClass="control-label" />
 						<div class="controls">
-							<h:inputTextarea rows="10" id="post"
+							<rich:editor id="post" theme="advanced"
 								value="#{postBean.newPost.post}" />
-							<h:message for="post" infoClass="alert alert-info"
-								warnClass="alert" errorClass="alert alert-error"
-								fatalClass="alert alert-error" />
 						</div>
 					</div>
+					<div class="control-group">
+								<div class="controls">
+									<h:message for="post" infoClass="alert alert-info"
+										warnClass="alert" errorClass="alert alert-error"
+										fatalClass="alert alert-error" />
+								</div>
+						</div>
 				</h:panelGroup>
 			</b:bodyFacet>
 
 			<b:footerFacet>
 				<b:commandButton value="#{messages.save}" severity="primary"
-					render="@ALL" execute="@form"
+					render="newPostForm" execute="@form"
 					action="#{postBean.saveNewPost}"
 					oncomplete="if(#{!facesContext.isValidationFailed()}) #{b:hide('newPostModal')}" />
 
