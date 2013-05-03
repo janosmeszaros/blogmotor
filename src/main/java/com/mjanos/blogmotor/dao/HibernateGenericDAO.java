@@ -52,13 +52,12 @@ public class HibernateGenericDAO<T> implements GenericDAO<T> {
     @Transactional
     @Override
     public List<T> getByCriteria(final Criterion... criterion) {
-        final Criteria crit = getSession().createCriteria(persistentClass);
+        final Criteria crit = getSession().createCriteria(persistentClass).setCacheable(true);
         if (criterion != null) {
             for (final Criterion c : criterion) {
                 crit.add(c);
             }
         }
-
         return crit.list();
     }
 

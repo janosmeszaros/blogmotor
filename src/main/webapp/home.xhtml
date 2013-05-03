@@ -9,14 +9,14 @@
 	<ui:define name="content">
 		<ui:repeat var="post" value="#{postBean.posts}">
 			<b:heroUnit heading="#{post.title}">
-				<b:gridRow styleClass="show-grid alert alert-success" fluid="true" >
+				<b:gridRow styleClass="show-grid alert alert-success" fluid="true">
 					<b:gridColumn span="2">
 						<h:outputText value="#{post.postDate}">
 							<f:convertDateTime pattern="dd.MM.yyyy" />
 						</h:outputText>
 					</b:gridColumn>
 					<b:gridColumn span="2">
-							<h:outputText value="Author: #{post.owner.name}" />
+						<h:outputText value="Author: #{post.owner.name}" />
 					</b:gridColumn>
 					<b:gridColumn span="2">
 						<b:badge severity="warning">
@@ -30,13 +30,10 @@
 				<b:gridRow styleClass="show-grid" fluid="true">
 					<b:gridColumn span="2" offset="10">
 						<h:form>
-							<b:commandButton value="Comments" severity="info" />
+							<b:commandButton value="#{messages.details}" severity="info" action="#{postBean.showActual(post.id)}"/>
 						</h:form>
 					</b:gridColumn>
 				</b:gridRow>
-				<ui:repeat var="comment" value="#{post.comments}">
-					<h:outputText value="#{comment.comment}" />
-				</ui:repeat>
 			</b:heroUnit>
 		</ui:repeat>
 

@@ -35,7 +35,7 @@ public class Post {
     @NotEmpty
     private String title;
 
-    @ManyToOne(cascade = CascadeType.ALL)
+    @ManyToOne
     private Taxonomy taxonomy;
 
     @Temporal(TemporalType.TIMESTAMP)
@@ -45,7 +45,7 @@ public class Post {
     @OneToMany(cascade = CascadeType.REMOVE, mappedBy = "post", fetch = FetchType.EAGER)
     private List<Comment> comments = new ArrayList<Comment>();
 
-    @ManyToOne(cascade = CascadeType.ALL)
+    @ManyToOne
     private BlogUser owner;
 
     public long getId() {

@@ -59,5 +59,7 @@
 		c:persistentClass="com.mjanos.blogmotor.model.Post" id="postGenericDAO" />
 	<bean class="com.mjanos.blogmotor.dao.HibernateGenericDAO"
 		c:persistentClass="com.mjanos.blogmotor.model.Taxonomy" id="taxonomyGenericDAO" />
+	<bean class="com.mjanos.blogmotor.dao.HibernateGenericDAO"
+		c:persistentClass="com.mjanos.blogmotor.model.Comment" id="commentGenericDAO" />
 
 </beans>

@@ -18,4 +18,20 @@
 			  <supported-locale>hu</supported-locale>
 		</locale-config>
 	</application>
+	<navigation-rule>
+	    <from-view-id>/home.xhtml</from-view-id>
+	    <navigation-case>
+	        <from-outcome>post</from-outcome>
+	        <to-view-id>/views/post.xhtml</to-view-id>
+	        <redirect />
+	    </navigation-case>
+	</navigation-rule>
+	<navigation-rule>
+	    <from-view-id>/views/post.xhtml</from-view-id>
+	    <navigation-case>
+	        <from-outcome>home</from-outcome>
+	        <to-view-id>/home.xhtml</to-view-id>
+	        <redirect />
+	    </navigation-case>
+	</navigation-rule>
 </faces-config>
