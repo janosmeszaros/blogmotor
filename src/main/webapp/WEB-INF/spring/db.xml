@@ -25,10 +25,6 @@
 				<prop key="hibernate.dialect">${db.dialect}</prop>
 				<prop key="hibernate.show_sql">true</prop>
 				<prop key="hibernate.hbm2ddl.auto">create</prop>
-				<prop key="hibernate.cache.provider_class">org.hibernate.cache.EhCacheProvider</prop>
-				<prop key="hibernate.cache.region.factory_class">org.hibernate.cache.ehcache.EhCacheRegionFactory</prop> 
-				<prop key="hibernate.cache.use_structured_entries">true</prop>
-				<prop key="hibernate.cache.use_second_level_cache">true</prop>
 			</props>
 		</property>
 	</bean>

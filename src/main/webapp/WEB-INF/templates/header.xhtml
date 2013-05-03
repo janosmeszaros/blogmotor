@@ -4,10 +4,9 @@
 	xmlns:h="http://java.sun.com/jsf/html"
 	xmlns:b="http://richfaces.org/sandbox/bootstrap">
 
-	<header class="jumbotron" id="overview">
-		<div class="container">
-			<h1>Blog</h1>
-		</div>
-	</header>
-
+	<b:navbar brand="Blog">
+		<b:positionFacet>
+			  <h:link outcome="home" value="#{messages.home}"/>
+		</b:positionFacet>
+	</b:navbar>
 </ui:composition>

@@ -22,6 +22,9 @@ public class PostBean {
     @Autowired
     @Qualifier("postGenericDAO")
     private GenericDAO<Post> dao;
+    @Autowired
+    @Qualifier("commentGenericDAO")
+    private GenericDAO<Comment> commentDAO;
 
     @Autowired
     private UserBean userBean;
@@ -54,6 +57,7 @@ public class PostBean {
 
     private void persistNewComment() {
         actual.getComments().add(newComment);
+        commentDAO.persist(newComment);
         dao.update(actual);
     }
 
@@ -96,7 +100,8 @@ public class PostBean {
     }
 
     public List<Post> getPosts() {
-        return dao.getByCriteria();
+        final List<Post> list = dao.getByCriteria();
+        return list;
     }
 
     public Post getNewPost() {
