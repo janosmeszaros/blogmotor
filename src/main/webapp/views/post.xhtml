@@ -27,7 +27,7 @@
 					<h:outputText value="#{postBean.actual.post}" />
 				</p>
 				<b:gridRow styleClass="show-grid" fluid="true">
-					<b:gridColumn span="2" offset="10">
+					<b:gridColumn span="2" offset="8">
 						<h:form>
 							<h:panelGrid columns="3" cellpadding="10">
 								<b:commandButton value="#{messages.edit}" severity="warning" mode="ajax" action="#{postBean.edit}" render="newPostForm:title newPostForm:taxonomy newPostForm:post" oncomplete="#{b:show('newPostModal')}"
@@ -55,7 +55,7 @@
 								</h:outputText>
 							</b:gridColumn>
 							<b:gridColumn span="8">
-								<h:outputText value="#{comment.comment}" />
+								<h:outputText  escape="false" value="#{comment.comment}" />
 							</b:gridColumn>
 						</b:gridRow>
 					</b:gridRow>

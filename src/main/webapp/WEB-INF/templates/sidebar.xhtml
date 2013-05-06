@@ -43,10 +43,10 @@
 			<p class="lead">
 				<h:outputText value="#{messages.welcome} #{userBean.loggedInUser.name}!!" />
 			</p>
-				<h:panelGrid columns="2" cellpadding="10">
+				<h:panelGrid columns="3" cellpadding="10">
 					<b:commandButton value="#{messages.createpost}" severity="info" mode="client" onclick="#{b:show('newPostModal')}" rendered="#{userBean.loggedInUser.role != 'user'}" />
-					<b:commandButton value="#{messages.signout}" severity="danger" mode="server"
-						action="#{userBean.signout}" />
+					<b:commandButton value="#{messages.listuser}" severity="success" mode="server" action="#{userBean.listUsers}" rendered="#{userBean.loggedInUser.role == 'admin'}" />
+					<b:commandButton value="#{messages.signout}" severity="danger" mode="server" action="#{userBean.signOut}" />
 				</h:panelGrid>
 		</h:form>
 	</b:alert>

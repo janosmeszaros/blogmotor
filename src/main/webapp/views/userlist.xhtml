@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:a4j="http://richfaces.org/a4j"
+	xmlns:rich="http://richfaces.org/rich"
+	template="/WEB-INF/templates/template.xhtml"
+	xmlns:b="http://richfaces.org/sandbox/bootstrap">
+	<ui:define name="content">
+		<ui:fragment rendered="#{userBean.loggedInUser != null}">
+			<h:form>
+				<table class="table">
+					<thead>
+						<tr>
+							<th>Id</th>
+							<th><h:outputText value=" #{messages.name} " /></th>
+							<th><h:outputText value=" #{messages.email} " /></th>
+							<th><h:outputText value=" #{messages.password} " /></th>
+							<th><h:outputText value=" #{messages.role} " /></th>
+							<th><h:outputText value=" #{messages.actions} " /></th>
+						</tr>
+					</thead>
+					<tbody>
+						<ui:repeat var="user" value="#{userBean.users}">
+							<tr>
+								<td><h:outputText value=" #{user.id}" /></td>
+								<td><h:outputText value=" #{user.name}" /></td>
+								<td><h:outputText value=" #{user.email}" /></td>
+								<td><h:outputText value=" #{user.password}" /></td>
+								<td><h:outputText value=" #{user.role}" /></td>
+								<td><b:commandButton severity="inverse">
+										<i class="icon-edit"></i>
+									</b:commandButton> <b:commandButton rendered="#{user.role != 'admin'}"
+										severity="danger">
+										<i class="icon-minus-sign"></i>
+									</b:commandButton></td>
+							</tr>
+						</ui:repeat>
+					</tbody>
+				</table>
+			</h:form>
+		</ui:fragment>
+	</ui:define>
+</ui:composition>

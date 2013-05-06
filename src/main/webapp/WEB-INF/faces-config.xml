@@ -34,4 +34,11 @@
 	        <redirect />
 	    </navigation-case>
 	</navigation-rule>
+	<navigation-rule>
+	    <navigation-case>
+	        <from-outcome>userlist</from-outcome>
+	        <to-view-id>/views/userlist.xhtml</to-view-id>
+	        <redirect />
+	    </navigation-case>
+	</navigation-rule>
 </faces-config>

@@ -37,6 +37,7 @@ public class UserBean {
 
     private BlogUser user = new BlogUser();
     private BlogUser loggedInUser;
+    private List<BlogUser> users;
 
     /**
      * Register user.
@@ -45,6 +46,16 @@ public class UserBean {
         LOG.debug(getUser().toString());
         dao.persist(user);
         invalidate();
+    }
+
+    /**
+     * List the existing users.
+     * @return view name.
+     */
+    public String listUsers() {
+        LOG.debug("List users.");
+        users = dao.getByCriteria();
+        return "userlist";
     }
 
     private void invalidate() {
@@ -111,6 +122,14 @@ public class UserBean {
                     new FacesMessage(FacesMessage.SEVERITY_ERROR, PASSWORDS_DO_NOT_MATCH, PASSWORDS_DO_NOT_MATCH);
             throw new ValidatorException(message);
         }
+    }
+
+    public List<BlogUser> getUsers() {
+        return users;
+    }
+
+    public void setUsers(final List<BlogUser> users) {
+        this.users = users;
     }
 
     public BlogUser getUser() {
