@@ -18,9 +18,9 @@
 					fatalClass="alert alert-error" />
 			</b:bodyFacet>
 			<b:footerFacet>
-				<b:commandButton value="#{messages.save}" severity="primary" mode="server"
-					render="commentsWrapper editCommentForm" execute="@form"
-					action="#{commentBean.saveEditedComment}"
+				<b:commandButton value="#{messages.save}" severity="primary"
+					mode="server" render="commentsWrapper editCommentForm"
+					execute="@form" action="#{commentBean.saveEditedComment}"
 					oncomplete="if(#{!facesContext.isValidationFailed()}) #{b:hide('editCommentModal')}" />
 
 				<b:commandButton value="#{messages.cancel}" execute="@this"
@@ -52,13 +52,19 @@
 								rendered="#{userBean.loggedInUser.email == comment.owner.email || userBean.loggedInUser.role == 'admin'}"
 								render="editCommentForm"
 								oncomplete="#{b:show('editCommentModal')}">
-								<i class="icon-edit"></i>
+								<b:tooltip title="#{messages.edit}" animation="false"
+									delay="500">
+									<i class="icon-edit" />
+								</b:tooltip>
 							</b:commandButton>
 							<b:commandButton scale="mini"
 								rendered="#{userBean.loggedInUser.email == comment.owner.email || userBean.loggedInUser.role == 'admin'}"
 								render="commentsWrapper" severity="danger" mode="server"
 								action="#{commentBean.delete(comment.id)}">
-								<i class="icon-minus-sign"></i>
+								<b:tooltip title="#{messages.delete}" animation="false"
+									delay="500">
+									<i class="icon-minus-sign" />
+								</b:tooltip>
 							</b:commandButton>
 						</b:gridColumn>
 						<b:gridColumn span="8">

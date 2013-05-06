@@ -29,11 +29,18 @@
 								<td><h:outputText value=" #{user.password}" /></td>
 								<td><h:outputText value=" #{user.role}" /></td>
 								<td><b:commandButton scale="mini" severity="inverse">
-										<i class="icon-edit"></i>
-									</b:commandButton> <b:commandButton scale="mini" rendered="#{user.role != 'admin'}"
-										render="userTable" severity="danger" mode="server"
+										<b:tooltip title="#{messages.edit}" animation="false"
+											delay="500">
+											<i class="icon-edit" />
+										</b:tooltip>
+									</b:commandButton> <b:commandButton scale="mini"
+										rendered="#{user.role != 'admin'}" render="userTable"
+										severity="danger" mode="server"
 										action="#{userBean.delete(user.id)}">
-										<i class="icon-minus-sign"></i>
+										<b:tooltip title="#{messages.delete}" animation="false"
+											delay="500">
+											<i class="icon-minus-sign" />
+										</b:tooltip>
 									</b:commandButton></td>
 							</tr>
 						</ui:repeat>
