@@ -30,9 +30,9 @@
 					<b:gridColumn span="2" offset="10">
 						<h:form>
 							<h:panelGrid columns="3" cellpadding="10">
-								<b:commandButton value="Edit" severity="warning" mode="ajax" action="#{postBean.edit}" render="newPostForm:title newPostForm:taxonomy newPostForm:post" oncomplete="#{b:show('newPostModal')}"
+								<b:commandButton value="#{messages.edit}" severity="warning" mode="ajax" action="#{postBean.edit}" render="newPostForm:title newPostForm:taxonomy newPostForm:post" oncomplete="#{b:show('newPostModal')}"
 									rendered="#{userBean.loggedInUser.role == 'admin' || postBean.actual.owner == userBean.loggedInUser}" />
-								<b:commandButton value="Delete" severity="danger" mode="server"
+								<b:commandButton value="#{messages.delete}" severity="danger" mode="server"
 									action="#{postBean.delete}"
 									rendered="#{userBean.loggedInUser.role == 'admin' || postBean.actual.owner == userBean.loggedInUser}" />
 							</h:panelGrid>
