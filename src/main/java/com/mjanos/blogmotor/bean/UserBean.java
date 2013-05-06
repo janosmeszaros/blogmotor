@@ -100,6 +100,17 @@ public class UserBean {
     }
 
     /**
+     * Delete the selected user.
+     * @param id
+     *            id of user to delete.
+     */
+    public void delete(final long id) {
+        final BlogUser userToDelete = dao.getById(id);
+        dao.delete(userToDelete);
+        users = dao.getByCriteria();
+    }
+
+    /**
      * Validate the password in registration.
      * @param context
      *            context

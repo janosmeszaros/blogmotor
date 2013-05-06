@@ -1,13 +1,21 @@
 package com.mjanos.blogmotor.model;
 
+import java.util.ArrayList;
+import java.util.List;
+
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 import org.apache.commons.lang3.builder.ToStringBuilder;
+import org.hibernate.annotations.Fetch;
+import org.hibernate.annotations.FetchMode;
 import org.hibernate.validator.constraints.Email;
 import org.hibernate.validator.constraints.NotEmpty;
 
@@ -35,6 +43,10 @@ public class BlogUser {
 
     @Enumerated(EnumType.STRING)
     private BlogRole role = BlogRole.user;
+
+    @OneToMany(cascade = CascadeType.REMOVE, mappedBy = "owner", fetch = FetchType.EAGER)
+    @Fetch(FetchMode.SELECT)
+    private List<Comment> comments = new ArrayList<Comment>();
 
     public long getId() {
         return id;
@@ -74,6 +86,14 @@ public class BlogUser {
 
     public void setRole(final BlogRole role) {
         this.role = role;
+    }
+
+    public void setComments(final List<Comment> comments) {
+        this.comments = comments;
+    }
+
+    public List<Comment> getComments() {
+        return comments;
     }
 
     @Override
