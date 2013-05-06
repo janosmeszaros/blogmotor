@@ -33,6 +33,7 @@ public class CommentBean {
 
     private Comment newComment;
     private Post actualPost;
+    private Comment commentToEdit;
 
     /**
      * Save new comment to the post.
@@ -81,6 +82,35 @@ public class CommentBean {
     }
 
     /**
+     * Edit the {@link Comment} with the specified id.
+     * @param id
+     *            {@link Comment}'s id.
+     */
+    public void edit(final long id) {
+        commentToEdit = commentDAO.getById(id);
+        LOG.debug("Edit comment: " + commentToEdit.getComment() + " id: " + commentToEdit.getId());
+    }
+
+    /**
+     * Save the edited comment.
+     */
+    public void saveEditedComment() {
+        commentDAO.update(commentToEdit);
+        refreshPost();
+    }
+
+    private void refreshPost() {
+        postBean.getActualFromDB(postBean.getActual().getId());
+    }
+
+    /**
+     * Invalidate the edit comment.
+     */
+    public void invalidateEditComment() {
+        commentToEdit = null;
+    }
+
+    /**
      * Get new comment.
      * @return {@link Comment}
      */
@@ -94,4 +124,13 @@ public class CommentBean {
     public void setNewComment(final Comment newComment) {
         this.newComment = newComment;
     }
+
+    public Comment getCommentToEdit() {
+        return commentToEdit;
+    }
+
+    public void setCommentToEdit(final Comment commentToEdit) {
+        this.commentToEdit = commentToEdit;
+    }
+
 }

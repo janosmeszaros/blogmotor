@@ -1,0 +1,94 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:rich="http://richfaces.org/rich"
+	xmlns:b="http://richfaces.org/sandbox/bootstrap">
+
+	<b:modal id="editCommentModal">
+		<b:headerFacet>
+			<h3>#{messages.editComment}</h3>
+		</b:headerFacet>
+		<h:form id="editCommentForm" styleClass="form-horizontal">
+			<b:bodyFacet id="editCommentFormBody">
+				<rich:editor theme="advanced" id="editedComment"
+					value="#{commentBean.commentToEdit.comment}" />
+				<h:message for="editedComment" infoClass="alert alert-info"
+					warnClass="alert" errorClass="alert alert-error"
+					fatalClass="alert alert-error" />
+			</b:bodyFacet>
+			<b:footerFacet>
+				<b:commandButton value="#{messages.save}" severity="primary" mode="server"
+					render="commentsWrapper editCommentForm" execute="@form"
+					action="#{commentBean.saveEditedComment}"
+					oncomplete="if(#{!facesContext.isValidationFailed()}) #{b:hide('editCommentModal')}" />
+
+				<b:commandButton value="#{messages.cancel}" execute="@this"
+					mode="server" action="#{commentBean.invalidateEditComment}"
+					oncomplete="#{b:hide('editCommentModal')}" />
+			</b:footerFacet>
+		</h:form>
+	</b:modal>
+
+	<p class="lead">
+		<h:outputText value="#{messages.comments}" />
+	</p>
+	<h:panelGroup id="commentsWrapper">
+		<ui:repeat var="comment" value="#{postBean.actual.comments}">
+			<h:form>
+				<b:gridRow styleClass="well">
+					<b:gridRow styleClass="show-grid" fluid="true">
+						<b:gridColumn span="4">
+							<h:outputText value="#{comment.owner.name}" />
+							<br />
+							<strong> <h:outputText value="#{messages.date}" />
+							</strong>
+							<h:outputText value="#{comment.commentDate}">
+								<f:convertDateTime pattern="dd.MM.yyyy HH:mm" />
+							</h:outputText>
+							<br />
+							<b:commandButton severity="inverse" scale="mini"
+								action="#{commentBean.edit(comment.id)}"
+								rendered="#{userBean.loggedInUser.email == comment.owner.email || userBean.loggedInUser.role == 'admin'}"
+								render="editCommentForm"
+								oncomplete="#{b:show('editCommentModal')}">
+								<i class="icon-edit"></i>
+							</b:commandButton>
+							<b:commandButton scale="mini"
+								rendered="#{userBean.loggedInUser.email == comment.owner.email || userBean.loggedInUser.role == 'admin'}"
+								render="commentsWrapper" severity="danger" mode="server"
+								action="#{commentBean.delete(comment.id)}">
+								<i class="icon-minus-sign"></i>
+							</b:commandButton>
+						</b:gridColumn>
+						<b:gridColumn span="8">
+							<h:outputText escape="false" value="#{comment.comment}" />
+						</b:gridColumn>
+					</b:gridRow>
+				</b:gridRow>
+			</h:form>
+		</ui:repeat>
+	</h:panelGroup>
+	<b:gridRow styleClass="show-grid" fluid="true"
+		rendered="#{userBean.loggedInUser != null}">
+		<h:form>
+			<b:gridColumn span="7">
+				<rich:editor theme="advanced" id="newComment"
+					value="#{commentBean.newComment.comment}" />
+			</b:gridColumn>
+			<b:gridColumn span="4">
+				<b:commandButton value="#{messages.comment}" severity="primary"
+					mode="server" action="#{commentBean.saveNewComment}" />
+				<br />
+				<br />
+				<h:message for="newComment" infoClass="alert alert-info"
+					warnClass="alert" errorClass="alert alert-error"
+					fatalClass="alert alert-error" />
+			</b:gridColumn>
+		</h:form>
+	</b:gridRow>
+	<b:alert icon="default" rendered="#{userBean.loggedInUser == null}">
+		<h:outputText value="#{messages.signinrequired}" />
+	</b:alert>
+
+</ui:composition>

@@ -2,6 +2,7 @@ package com.mjanos.blogmotor.model;
 
 import java.util.Date;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
@@ -10,6 +11,7 @@ import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
 import org.apache.commons.lang3.builder.ToStringBuilder;
+import org.hibernate.validator.constraints.NotEmpty;
 import org.springframework.format.annotation.DateTimeFormat;
 
 /**
@@ -26,13 +28,14 @@ public class Comment {
     @ManyToOne
     private Post post;
 
+    @NotEmpty
     private String comment;
 
     @Temporal(TemporalType.TIMESTAMP)
     @DateTimeFormat(style = "M-")
     private Date commentDate;
 
-    @ManyToOne
+    @ManyToOne(cascade = CascadeType.REFRESH)
     private BlogUser owner;
 
     public long getId() {

@@ -72,8 +72,17 @@ public class PostBean {
      * @return view
      */
     public String showActual(final long id) {
-        actual = dao.getById(id);
+        getActualFromDB(id);
         return "post";
+    }
+
+    /**
+     * Get actual from db.
+     * @param id
+     *            id of {@link Post}.
+     */
+    public void getActualFromDB(final long id) {
+        actual = dao.getById(id);
     }
 
     private void persistPost() {
