@@ -21,6 +21,10 @@ import org.hibernate.annotations.FetchMode;
 import org.hibernate.validator.constraints.NotEmpty;
 import org.springframework.format.annotation.DateTimeFormat;
 
+/**
+ * Post entity.
+ * @author Janos_Gyula_Meszaros
+ */
 @Entity
 public class Post {
     @Id

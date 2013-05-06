@@ -12,6 +12,10 @@ import javax.persistence.TemporalType;
 import org.apache.commons.lang3.builder.ToStringBuilder;
 import org.springframework.format.annotation.DateTimeFormat;
 
+/**
+ * Comment entity.
+ * @author Janos_Gyula_Meszaros
+ */
 @Entity
 public class Comment {
 
@@ -35,7 +39,7 @@ public class Comment {
         return id;
     }
 
-    public void setId(long id) {
+    public void setId(final long id) {
         this.id = id;
     }
 
@@ -43,7 +47,7 @@ public class Comment {
         return post;
     }
 
-    public void setPost(Post post) {
+    public void setPost(final Post post) {
         this.post = post;
     }
 
@@ -51,7 +55,7 @@ public class Comment {
         return comment;
     }
 
-    public void setComment(String comment) {
+    public void setComment(final String comment) {
         this.comment = comment;
     }
 
@@ -59,7 +63,7 @@ public class Comment {
         return commentDate;
     }
 
-    public void setCommentDate(Date commentDate) {
+    public void setCommentDate(final Date commentDate) {
         this.commentDate = commentDate;
     }
 
@@ -67,7 +71,7 @@ public class Comment {
         return owner;
     }
 
-    public void setOwner(BlogUser owner) {
+    public void setOwner(final BlogUser owner) {
         this.owner = owner;
     }
 

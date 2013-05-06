@@ -14,6 +14,10 @@ import com.mjanos.blogmotor.dao.GenericDAO;
 import com.mjanos.blogmotor.model.Comment;
 import com.mjanos.blogmotor.model.Post;
 
+/**
+ * Post bean.
+ * @author Janos_Gyula_Meszaros
+ */
 @Scope("session")
 @Component("postBean")
 public class PostBean {
@@ -32,21 +36,34 @@ public class PostBean {
     private Post actual;
     private Comment newComment;
 
+    /**
+     * Save the new post to db.
+     */
     public void saveNewPost() {
         persistPost();
         invalidatePost();
     }
 
+    /**
+     * Set the actually selected post to the edit.
+     */
     public void edit() {
         newPost = actual;
     }
 
+    /**
+     * Delete the selected post.
+     * @return to home screen.
+     */
     public String delete() {
         LOG.debug("Delete post with id: " + actual.getId());
         dao.delete(actual);
         return "home";
     }
 
+    /**
+     * Save new comment to the post.
+     */
     public void saveNewComment() {
         addPostToNewMessage();
         addOwnerToNewMessage();
@@ -77,6 +94,10 @@ public class PostBean {
         newComment.setPost(actual);
     }
 
+    /**
+     * Get new comment.
+     * @return {@link Comment}
+     */
     public Comment getNewComment() {
         if (newComment == null) {
             newComment = new Comment();
@@ -88,6 +109,12 @@ public class PostBean {
         this.newComment = newComment;
     }
 
+    /**
+     * Show actual post in detailed window.
+     * @param id
+     *            actual post's id.
+     * @return view
+     */
     public String showActual(final long id) {
         actual = dao.getById(id);
         return "post";
@@ -100,15 +127,26 @@ public class PostBean {
         LOG.debug("Save post: " + newPost);
     }
 
+    /**
+     * Invalidate post.
+     */
     public void invalidatePost() {
         newPost = null;
     }
 
+    /**
+     * Get all posts.
+     * @return list of {@link Post}
+     */
     public List<Post> getPosts() {
         final List<Post> list = dao.getByCriteria();
         return list;
     }
 
+    /**
+     * Return new post.
+     * @return {@link Post}
+     */
     public Post getNewPost() {
         if (newPost == null) {
             newPost = new Post();

@@ -20,10 +20,16 @@ import org.springframework.stereotype.Component;
 import com.mjanos.blogmotor.dao.GenericDAO;
 import com.mjanos.blogmotor.model.BlogUser;
 
+/**
+ * Bean for handling users.
+ * @author Janos_Gyula_Meszaros
+ */
 @Scope("session")
 @Component("userBean")
 public class UserBean {
-    private final Logger LOG = LoggerFactory.getLogger(UserBean.class);
+    private static final String PASSWORDS_DO_NOT_MATCH = "Passwords do not match!";
+    private static final String WRONG_EMAIL_OR_PASSWORD = "Wrong email or password!";
+    private static final Logger LOG = LoggerFactory.getLogger(UserBean.class);
 
     @Autowired
     @Qualifier("userGenericDAO")
@@ -32,6 +38,9 @@ public class UserBean {
     private BlogUser user = new BlogUser();
     private BlogUser loggedInUser;
 
+    /**
+     * Register user.
+     */
     public void register() {
         LOG.debug(getUser().toString());
         dao.persist(user);
@@ -42,6 +51,9 @@ public class UserBean {
         user = new BlogUser();
     }
 
+    /**
+     * Login user.
+     */
     public void signIn() {
         final List<BlogUser> list = getUserFromDb();
         storeUser(list);
@@ -54,7 +66,7 @@ public class UserBean {
         } else {
             final FacesContext context = FacesContext.getCurrentInstance();
             final FacesMessage message =
-                    new FacesMessage(FacesMessage.SEVERITY_ERROR, "Wrong email or password!", "Wrong email or password!");
+                    new FacesMessage(FacesMessage.SEVERITY_ERROR, WRONG_EMAIL_OR_PASSWORD, WRONG_EMAIL_OR_PASSWORD);
             context.addMessage("loginForm:signin", message);
         }
     }
@@ -68,11 +80,23 @@ public class UserBean {
         return list;
     }
 
+    /**
+     * Sign out signed in user.
+     */
     public void signOut() {
         LOG.debug("Logging out " + loggedInUser.getName());
         loggedInUser = null;
     }
 
+    /**
+     * Validate the password in registration.
+     * @param context
+     *            context
+     * @param toValidate
+     *            toValidate
+     * @param value
+     *            value
+     */
     public void validatePassword(final FacesContext context, final UIComponent toValidate, final Object value) {
         final String confirmPassword = (String) value;
 
@@ -84,7 +108,7 @@ public class UserBean {
 
         if (!confirmPassword.equals(password)) {
             final FacesMessage message =
-                    new FacesMessage(FacesMessage.SEVERITY_ERROR, "Passwords do not match!", "Passwords do not match!");
+                    new FacesMessage(FacesMessage.SEVERITY_ERROR, PASSWORDS_DO_NOT_MATCH, PASSWORDS_DO_NOT_MATCH);
             throw new ValidatorException(message);
         }
     }

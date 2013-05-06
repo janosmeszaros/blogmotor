@@ -8,13 +8,17 @@ import org.apache.commons.lang3.builder.EqualsBuilder;
 import org.apache.commons.lang3.builder.HashCodeBuilder;
 import org.apache.commons.lang3.builder.ToStringBuilder;
 
+/**
+ * Taxonomy entity.
+ * @author Janos_Gyula_Meszaros
+ */
 @Entity
 public class Taxonomy {
     @Id
     @GeneratedValue
     private long id;
 
-    private String Name;
+    private String name;
 
     public long getId() {
         return id;
@@ -25,11 +29,11 @@ public class Taxonomy {
     }
 
     public String getName() {
-        return Name;
+        return name;
     }
 
     public void setName(final String name) {
-        Name = name;
+        this.name = name;
     }
 
     @Override

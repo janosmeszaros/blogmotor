@@ -10,6 +10,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
 
+/**
+ * Hibernate based implementation for {@link GenericDAO} interface.
+ * @author Janos_Gyula_Meszaros
+ * @param <T>
+ */
 @Component
 public class HibernateGenericDAO<T> implements GenericDAO<T> {
 
@@ -17,9 +22,17 @@ public class HibernateGenericDAO<T> implements GenericDAO<T> {
     private SessionFactory factory;
     private Class<T> persistentClass;
 
+    /**
+     * Default constructor. Needed for spring.
+     */
     public HibernateGenericDAO() {
     }
 
+    /**
+     * Constructor.
+     * @param persistentClass
+     *            entity type.
+     */
     public HibernateGenericDAO(final Class<T> persistentClass) {
         super();
         this.persistentClass = persistentClass;
