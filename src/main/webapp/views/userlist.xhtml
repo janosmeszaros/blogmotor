@@ -3,6 +3,7 @@
 	xmlns:ui="http://java.sun.com/jsf/facelets"
 	xmlns:f="http://java.sun.com/jsf/core"
 	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:rich="http://richfaces.org/rich"
 	template="/WEB-INF/templates/template.xhtml"
 	xmlns:b="http://richfaces.org/sandbox/bootstrap">
 	<ui:define name="content">
@@ -27,9 +28,9 @@
 								<td><h:outputText value=" #{user.email}" /></td>
 								<td><h:outputText value=" #{user.password}" /></td>
 								<td><h:outputText value=" #{user.role}" /></td>
-								<td><b:commandButton severity="inverse">
+								<td><b:commandButton scale="mini" severity="inverse">
 										<i class="icon-edit"></i>
-									</b:commandButton> <b:commandButton rendered="#{user.role != 'admin'}"
+									</b:commandButton> <b:commandButton scale="mini" rendered="#{user.role != 'admin'}"
 										render="userTable" severity="danger" mode="server"
 										action="#{userBean.delete(user.id)}">
 										<i class="icon-minus-sign"></i>

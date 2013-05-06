@@ -77,11 +77,11 @@
 
 			<b:footerFacet>
 				<b:commandButton value="#{messages.save}" severity="primary"
-					render="newPostForm" execute="@form"
+					render="newPostForm singlePost" execute="@form"
 					action="#{postBean.saveNewPost}"
 					oncomplete="if(#{!facesContext.isValidationFailed()}) #{b:hide('newPostModal')}" />
 
-				<b:commandButton value="#{messages.cancel}" mode="ajax"
+				<b:commandButton value="#{messages.cancel}" execute="@this" mode="server"
 					action="#{postBean.invalidatePost}"
 					oncomplete="#{b:hide('newPostModal')}" />
 			</b:footerFacet>

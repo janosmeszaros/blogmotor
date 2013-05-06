@@ -7,75 +7,93 @@
 	template="/WEB-INF/templates/template.xhtml"
 	xmlns:b="http://richfaces.org/sandbox/bootstrap">
 	<ui:define name="content">
-		<b:heroUnit heading="#{postBean.actual.title}">
-				<b:gridRow styleClass="show-grid alert alert-success" fluid="true">
-					<b:gridColumn span="2">
-						<h:outputText value="#{postBean.actual.postDate}">
-							<f:convertDateTime pattern="dd.MM.yyyy" />
-						</h:outputText>
-					</b:gridColumn>
-					<b:gridColumn span="2">
-						<h:outputText value="Author: #{postBean.actual.owner.name}" />
-					</b:gridColumn>
-					<b:gridColumn span="2">
-						<b:badge severity="warning">
-							<h:outputText value="#{postBean.actual.taxonomy.name}" />
-						</b:badge>
-					</b:gridColumn>
-				</b:gridRow>
-				<p class="lead">
-					<h:outputText value="#{postBean.actual.post}" />
-				</p>
-				<b:gridRow styleClass="show-grid" fluid="true">
-					<b:gridColumn span="2" offset="8">
-						<h:form>
-							<h:panelGrid columns="3" cellpadding="10">
-								<b:commandButton value="#{messages.edit}" severity="warning" mode="ajax" action="#{postBean.edit}" render="newPostForm:title newPostForm:taxonomy newPostForm:post" oncomplete="#{b:show('newPostModal')}"
-									rendered="#{userBean.loggedInUser.role == 'admin' || postBean.actual.owner == userBean.loggedInUser}" />
-								<b:commandButton value="#{messages.delete}" severity="danger" mode="server"
-									action="#{postBean.delete}"
-									rendered="#{userBean.loggedInUser.role == 'admin' || postBean.actual.owner == userBean.loggedInUser}" />
-							</h:panelGrid>
-						</h:form>
-					</b:gridColumn>
-				</b:gridRow>
-				<p class="lead">
-					<h:outputText value="#{messages.comments}" />
-				</p>
-				<ui:repeat var="comment" value="#{postBean.actual.comments}">
-					<b:gridRow styleClass="well">
-						<b:gridRow styleClass="show-grid" fluid="true">
-							<b:gridColumn span="4">
-								<h:outputText value="#{comment.owner.name}" />
-								<br />
-								<strong> <h:outputText value="#{messages.date}" />
-								</strong>
-								<h:outputText value="#{comment.commentDate}">
-									<f:convertDateTime pattern="dd.MM.yyyy HH:mm" />
-								</h:outputText>
-							</b:gridColumn>
-							<b:gridColumn span="8">
-								<h:outputText  escape="false" value="#{comment.comment}" />
-							</b:gridColumn>
-						</b:gridRow>
-					</b:gridRow>
-				</ui:repeat>
-				<b:gridRow styleClass="show-grid" fluid="true"
-					rendered="#{userBean.loggedInUser != null}">
+		<b:heroUnit heading="#{postBean.actual.title}" id="singlePost">
+			<b:gridRow styleClass="show-grid alert alert-success" fluid="true">
+				<b:gridColumn span="2">
+					<h:outputText value="#{postBean.actual.postDate}">
+						<f:convertDateTime pattern="dd.MM.yyyy" />
+					</h:outputText>
+				</b:gridColumn>
+				<b:gridColumn span="2">
+					<h:outputText value="Author: #{postBean.actual.owner.name}" />
+				</b:gridColumn>
+				<b:gridColumn span="2">
+					<b:badge severity="warning">
+						<h:outputText value="#{postBean.actual.taxonomy.name}" />
+					</b:badge>
+				</b:gridColumn>
+			</b:gridRow>
+			<p class="lead">
+				<h:outputText escape="false" value="#{postBean.actual.post}" />
+			</p>
+			<b:gridRow styleClass="show-grid" fluid="true">
+				<b:gridColumn span="2" offset="8">
 					<h:form>
-						<b:gridColumn span="8">
-							<rich:editor theme="advanced"
-								value="#{postBean.newComment.comment}" />
-						</b:gridColumn>
-						<b:gridColumn span="2">
-							<b:commandButton value="#{messages.comment}" severity="primary"
-								mode="server" action="#{postBean.saveNewComment}" />
-						</b:gridColumn>
+						<h:panelGrid columns="3" cellpadding="10">
+							<b:commandButton value="#{messages.edit}" severity="warning"
+								mode="ajax" action="#{postBean.edit}"
+								render="newPostForm:title newPostForm:taxonomy newPostForm:post"
+								oncomplete="#{b:show('newPostModal')}"
+								rendered="#{userBean.loggedInUser.role == 'admin' || postBean.actual.owner == userBean.loggedInUser}" />
+							<b:commandButton value="#{messages.delete}" severity="danger"
+								mode="server" action="#{postBean.delete}"
+								rendered="#{userBean.loggedInUser.role == 'admin' || postBean.actual.owner == userBean.loggedInUser}" />
+						</h:panelGrid>
 					</h:form>
-				</b:gridRow>
-				<b:alert icon="default" rendered="#{userBean.loggedInUser == null}">
-					<h:outputText value="#{messages.signinrequired}" />
-				</b:alert>
+				</b:gridColumn>
+			</b:gridRow>
+			<p class="lead">
+				<h:outputText value="#{messages.comments}" />
+			</p>
+			<h:panelGroup id="commentsWrapper">
+				<ui:repeat var="comment" value="#{postBean.actual.comments}">
+					<h:form>
+						<b:gridRow styleClass="well">
+							<b:gridRow styleClass="show-grid" fluid="true">
+								<b:gridColumn span="4">
+									<h:outputText value="#{comment.owner.name}" />
+									<br />
+									<strong> <h:outputText value="#{messages.date}" />
+									</strong>
+									<h:outputText value="#{comment.commentDate}">
+										<f:convertDateTime pattern="dd.MM.yyyy HH:mm" />
+									</h:outputText>
+									<br />
+									<b:commandButton severity="inverse" scale="mini"
+										rendered="#{userBean.loggedInUser.email == comment.owner.email || userBean.loggedInUser.role == 'admin'}">
+										<i class="icon-edit"></i>
+									</b:commandButton>
+									<b:commandButton scale="mini"
+										rendered="#{userBean.loggedInUser.email == comment.owner.email || userBean.loggedInUser.role == 'admin'}"
+										render="commentsWrapper" severity="danger" mode="server"
+										action="#{commentBean.delete(comment.id)}">
+										<i class="icon-minus-sign"></i>
+									</b:commandButton>
+								</b:gridColumn>
+								<b:gridColumn span="8">
+									<h:outputText escape="false" value="#{comment.comment}" />
+								</b:gridColumn>
+							</b:gridRow>
+						</b:gridRow>
+					</h:form>
+				</ui:repeat>
+			</h:panelGroup>
+			<b:gridRow styleClass="show-grid" fluid="true"
+				rendered="#{userBean.loggedInUser != null}">
+				<h:form>
+					<b:gridColumn span="8">
+						<rich:editor theme="advanced"
+							value="#{commentBean.newComment.comment}" />
+					</b:gridColumn>
+					<b:gridColumn span="2">
+						<b:commandButton value="#{messages.comment}" severity="primary"
+							mode="server" action="#{commentBean.saveNewComment}" />
+					</b:gridColumn>
+				</h:form>
+			</b:gridRow>
+			<b:alert icon="default" rendered="#{userBean.loggedInUser == null}">
+				<h:outputText value="#{messages.signinrequired}" />
+			</b:alert>
 		</b:heroUnit>
 	</ui:define>
 </ui:composition>

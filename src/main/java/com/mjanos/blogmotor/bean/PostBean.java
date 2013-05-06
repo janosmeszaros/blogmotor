@@ -11,7 +11,6 @@ import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
 
 import com.mjanos.blogmotor.dao.GenericDAO;
-import com.mjanos.blogmotor.model.Comment;
 import com.mjanos.blogmotor.model.Post;
 
 /**
@@ -26,15 +25,11 @@ public class PostBean {
     @Autowired
     @Qualifier("postGenericDAO")
     private GenericDAO<Post> dao;
-    @Autowired
-    @Qualifier("commentGenericDAO")
-    private GenericDAO<Comment> commentDAO;
 
     @Autowired
     private UserBean userBean;
     private Post newPost;
     private Post actual;
-    private Comment newComment;
 
     /**
      * Save the new post to db.
@@ -62,51 +57,12 @@ public class PostBean {
     }
 
     /**
-     * Save new comment to the post.
+     * Updates the specified {@link Post}
+     * @param post
+     *            {@link Post} to update.
      */
-    public void saveNewComment() {
-        addPostToNewMessage();
-        addOwnerToNewMessage();
-        addDateToNewComment();
-        persistNewComment();
-        invalidateComment();
-    }
-
-    private void invalidateComment() {
-        newComment = null;
-    }
-
-    private void persistNewComment() {
-        actual.getComments().add(newComment);
-        commentDAO.persist(newComment);
-        dao.update(actual);
-    }
-
-    private void addDateToNewComment() {
-        newComment.setCommentDate(new Date());
-    }
-
-    private void addOwnerToNewMessage() {
-        newComment.setOwner(userBean.getLoggedInUser());
-    }
-
-    private void addPostToNewMessage() {
-        newComment.setPost(actual);
-    }
-
-    /**
-     * Get new comment.
-     * @return {@link Comment}
-     */
-    public Comment getNewComment() {
-        if (newComment == null) {
-            newComment = new Comment();
-        }
-        return newComment;
-    }
-
-    public void setNewComment(final Comment newComment) {
-        this.newComment = newComment;
+    public void update(final Post post) {
+        dao.update(post);
     }
 
     /**

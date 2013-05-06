@@ -25,17 +25,18 @@
 					</b:gridColumn>
 				</b:gridRow>
 				<p class="lead">
-					<h:outputText value="#{post.post}" />
+					<h:outputText escape="false" value="#{post.post}" />
 				</p>
 				<b:gridRow styleClass="show-grid" fluid="true">
 					<b:gridColumn span="2" offset="10">
 						<h:form>
-							<b:commandButton value="#{messages.details}" severity="info" action="#{postBean.showActual(post.id)}"/>
+							<b:commandButton value="#{messages.details}" severity="info"
+								action="#{postBean.showActual(post.id)}" />
 						</h:form>
 					</b:gridColumn>
 				</b:gridRow>
 			</b:heroUnit>
 		</ui:repeat>
-
 	</ui:define>
+
 </ui:composition>

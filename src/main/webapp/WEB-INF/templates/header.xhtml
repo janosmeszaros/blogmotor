@@ -4,7 +4,11 @@
 	xmlns:h="http://java.sun.com/jsf/html"
 	xmlns:b="http://richfaces.org/sandbox/bootstrap">
 
-	<b:navbar brand="Blog">
+	<b:navbar>
+		<f:facet name="brand">
+			<h:link outcome="home" value="Blog" styleClass="brand" />
+		</f:facet>
+
 		<b:positionFacet>
 			  <h:link outcome="home" value="#{messages.home}"/>
 		</b:positionFacet>
