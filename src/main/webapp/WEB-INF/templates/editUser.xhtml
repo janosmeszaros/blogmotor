@@ -1,0 +1,54 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:rich="http://richfaces.org/rich"
+	xmlns:b="http://richfaces.org/sandbox/bootstrap">
+	<b:modal id="editUserModal">
+		<b:headerFacet>
+			<h3>#{messages.editUser}</h3>
+		</b:headerFacet>
+		<h:form id="editUserForm" styleClass="form-horizontal">
+			<b:bodyFacet id="editUserFormBody">
+				<h:panelGroup id="formWrapper">
+					<b:input id="name" value="#{userBean.userToEdit.name}">
+						<f:facet name="prepend">
+							<h:outputText value="#{messages.name}" />
+						</f:facet>
+					</b:input>
+					<h:message for="name" id="nameError" infoClass="alert alert-info"
+						warnClass="alert" errorClass="alert alert-error"
+						fatalClass="alert alert-error" />
+
+					<b:input id="email" value="#{userBean.userToEdit.email}">
+						<f:facet name="prepend">
+							<h:outputText value="#{messages.email}" />
+						</f:facet>
+					</b:input>
+					<h:message for="registerForm:email" id="emailError"
+						infoClass="alert alert-info" warnClass="alert"
+						errorClass="alert alert-error" fatalClass="alert alert-error" />
+
+					<b:input id="pass" value="#{userBean.userToEdit.password}">
+						<f:facet name="prepend">
+							<h:outputText value="#{messages.password}" />
+						</f:facet>
+					</b:input>
+					<h:message for="pass" id="passwordError"
+						infoClass="alert alert-info" warnClass="alert"
+						errorClass="alert alert-error" fatalClass="alert alert-error" />
+				</h:panelGroup>
+			</b:bodyFacet>
+			<b:footerFacet>
+				<b:commandButton value="#{messages.save}" severity="primary"
+					mode="server" render="editUserForm userTable" execute="@form"
+					action="#{userBean.saveEditedUser}"
+					oncomplete="if(#{!facesContext.isValidationFailed()}) #{b:hide('editUserModal')}" />
+
+				<b:commandButton value="#{messages.cancel}" execute="@this"
+					mode="server" action="#{userBean.invalidateUserEdit}"
+					oncomplete="#{b:hide('editUserModal')}" />
+			</b:footerFacet>
+		</h:form>
+	</b:modal>
+</ui:composition>

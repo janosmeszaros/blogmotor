@@ -7,6 +7,10 @@
 	template="/WEB-INF/templates/template.xhtml"
 	xmlns:b="http://richfaces.org/sandbox/bootstrap">
 	<ui:define name="content">
+		<ui:insert name="editUserModal">
+			<ui:include src="/WEB-INF/templates/editUser.xhtml" />
+		</ui:insert>
+
 		<ui:fragment rendered="#{userBean.loggedInUser.role == 'admin'}">
 			<h:form>
 				<table id="userTable" class="table table-striped">
@@ -28,14 +32,15 @@
 								<td><h:outputText value=" #{user.email}" /></td>
 								<td><h:outputText value=" #{user.password}" /></td>
 								<td><h:outputText value=" #{user.role}" /></td>
-								<td>
-										<b:tooltip title="#{messages.edit}" animation="false"
+								<td><b:tooltip title="#{messages.edit}" animation="false"
 										delay="500">
-										<b:commandButton scale="mini" severity="inverse">
+										<b:commandButton scale="mini" severity="inverse"
+											action="#{userBean.edit(user.id)}" render="editUserForm"
+											oncomplete="#{b:show('editUserModal')}">
 											<i class="icon-edit" />
 										</b:commandButton>
-									</b:tooltip> <b:tooltip title="#{messages.delete}"
-										animation="false" delay="500">
+									</b:tooltip> <b:tooltip title="#{messages.delete}" animation="false"
+										delay="500">
 										<b:commandButton scale="mini"
 											rendered="#{user.role != 'admin'}" render="userTable"
 											severity="danger" mode="server"

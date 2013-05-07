@@ -38,6 +38,7 @@ public class UserBean {
     private BlogUser user = new BlogUser();
     private BlogUser loggedInUser;
     private List<BlogUser> users;
+    private BlogUser userToEdit;
 
     /**
      * Register user.
@@ -48,18 +49,47 @@ public class UserBean {
         invalidate();
     }
 
+    private void invalidate() {
+        user = new BlogUser();
+    }
+
+    /**
+     * Prepare the {@link BlogUser} edit to get the actual user from db.
+     * @param id
+     *            id of {@link BlogUser}
+     */
+    public void edit(final long id) {
+        userToEdit = dao.getById(id);
+    }
+
+    /**
+     * Save the edited user.
+     */
+    public void saveEditedUser() {
+        dao.update(userToEdit);
+        invalidateUserEdit();
+        getUsersFromDb();
+    }
+
+    /**
+     * Invalidate edit user.
+     */
+    public void invalidateUserEdit() {
+        userToEdit = null;
+    }
+
     /**
      * List the existing users.
      * @return view name.
      */
     public String listUsers() {
         LOG.debug("List users.");
-        users = dao.getByCriteria();
+        getUsersFromDb();
         return "userlist";
     }
 
-    private void invalidate() {
-        user = new BlogUser();
+    private void getUsersFromDb() {
+        users = dao.getByCriteria();
     }
 
     /**
@@ -107,7 +137,7 @@ public class UserBean {
     public void delete(final long id) {
         final BlogUser userToDelete = dao.getById(id);
         dao.delete(userToDelete);
-        users = dao.getByCriteria();
+        getUsersFromDb();
     }
 
     /**
@@ -150,4 +180,13 @@ public class UserBean {
     public BlogUser getLoggedInUser() {
         return loggedInUser;
     }
+
+    public BlogUser getUserToEdit() {
+        return userToEdit;
+    }
+
+    public void setUserToEdit(final BlogUser userToEdit) {
+        this.userToEdit = userToEdit;
+    }
+
 }
