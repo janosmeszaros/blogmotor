@@ -47,25 +47,24 @@
 								<f:convertDateTime pattern="dd.MM.yyyy HH:mm" />
 							</h:outputText>
 							<br />
-							<b:commandButton severity="inverse" scale="mini"
-								action="#{commentBean.edit(comment.id)}"
-								rendered="#{userBean.loggedInUser.email == comment.owner.email || userBean.loggedInUser.role == 'admin'}"
-								render="editCommentForm"
-								oncomplete="#{b:show('editCommentModal')}">
-								<b:tooltip title="#{messages.edit}" animation="false"
-									delay="500">
+							<b:tooltip title="#{messages.edit}" animation="false" delay="500">
+								<b:commandButton severity="inverse" scale="mini"
+									action="#{commentBean.edit(comment.id)}"
+									rendered="#{userBean.loggedInUser.email == comment.owner.email || userBean.loggedInUser.role == 'admin'}"
+									render="editCommentForm"
+									oncomplete="#{b:show('editCommentModal')}">
 									<i class="icon-edit" />
-								</b:tooltip>
-							</b:commandButton>
-							<b:commandButton scale="mini"
-								rendered="#{userBean.loggedInUser.email == comment.owner.email || userBean.loggedInUser.role == 'admin'}"
-								render="commentsWrapper" severity="danger" mode="server"
-								action="#{commentBean.delete(comment.id)}">
-								<b:tooltip title="#{messages.delete}" animation="false"
+								</b:commandButton>
+							</b:tooltip>
+							<b:tooltip title="#{messages.delete}" animation="false"
 									delay="500">
+								<b:commandButton scale="mini"
+									rendered="#{userBean.loggedInUser.email == comment.owner.email || userBean.loggedInUser.role == 'admin'}"
+									render="commentsWrapper" severity="danger" mode="server"
+									action="#{commentBean.delete(comment.id)}">
 									<i class="icon-minus-sign" />
-								</b:tooltip>
-							</b:commandButton>
+								</b:commandButton>
+							</b:tooltip>
 						</b:gridColumn>
 						<b:gridColumn span="8">
 							<h:outputText escape="false" value="#{comment.comment}" />

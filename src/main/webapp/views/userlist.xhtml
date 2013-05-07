@@ -28,20 +28,21 @@
 								<td><h:outputText value=" #{user.email}" /></td>
 								<td><h:outputText value=" #{user.password}" /></td>
 								<td><h:outputText value=" #{user.role}" /></td>
-								<td><b:commandButton scale="mini" severity="inverse">
+								<td>
 										<b:tooltip title="#{messages.edit}" animation="false"
-											delay="500">
+										delay="500">
+										<b:commandButton scale="mini" severity="inverse">
 											<i class="icon-edit" />
-										</b:tooltip>
-									</b:commandButton> <b:commandButton scale="mini"
-										rendered="#{user.role != 'admin'}" render="userTable"
-										severity="danger" mode="server"
-										action="#{userBean.delete(user.id)}">
-										<b:tooltip title="#{messages.delete}" animation="false"
-											delay="500">
+										</b:commandButton>
+									</b:tooltip> <b:tooltip title="#{messages.delete}"
+										animation="false" delay="500">
+										<b:commandButton scale="mini"
+											rendered="#{user.role != 'admin'}" render="userTable"
+											severity="danger" mode="server"
+											action="#{userBean.delete(user.id)}">
 											<i class="icon-minus-sign" />
-										</b:tooltip>
-									</b:commandButton></td>
+										</b:commandButton>
+									</b:tooltip></td>
 							</tr>
 						</ui:repeat>
 					</tbody>

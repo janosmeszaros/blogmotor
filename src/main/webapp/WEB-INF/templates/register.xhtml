@@ -42,7 +42,7 @@
 						infoClass="alert alert-info" warnClass="alert"
 						errorClass="alert alert-error" fatalClass="alert alert-error" />
 
-					<b:input id="pass2" type="password"
+					<b:input id="pass2" type="password" required="true"
 						validator="#{userBean.validatePassword}"
 						placeholder="#{messages.passwordagain}">
 						<f:facet name="prepend">
